@@ -35,7 +35,6 @@ public class AuthService {
         String token=jwtService.getToken(userDetails);
         return AuthResponse.builder()
                 .token(token)
-                .rol(userDetails.getAuthorities().toString())
                 .build();
     }
 
@@ -45,7 +44,6 @@ public class AuthService {
                 .apellido(request.getApellido())
                 .email(request.getEmail())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
-                .rol(Usuario.Rol.PSICOLOGO)
                 .creadoEn(LocalDateTime.now())
                 .build();
 

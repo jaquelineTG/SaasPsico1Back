@@ -26,9 +26,9 @@ public class Mensaje {
     private String plantilla;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "psicologo_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    private Psicologo psicologo;
+    private Usuario usuario;
 
     @Column(name = "creado_en", nullable = false, updatable = false)
     private LocalDateTime creadoEn;
