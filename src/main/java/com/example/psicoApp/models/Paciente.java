@@ -26,6 +26,10 @@ public class Paciente {
     private String direccion;
 
     private String ocupacion;
+    // 👇 Relación con Psicólogo
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
     public enum Sexo { MASCULINO, FEMENINO, OTRO }
 }

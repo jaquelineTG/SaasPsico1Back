@@ -1,15 +1,10 @@
 package com.example.psicoApp.models;
 
-
-
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -17,11 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "usuarios", uniqueConstraints = {@UniqueConstraint(columnNames = {"nombre"})}, indexes = {
-        @Index(name = "idx_usuario_email", columnList = "email"),
-
+@Table(name = "usuarios", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"email"})
 })
-public class Usuario implements UserDetails  {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,11 +29,6 @@ public class Usuario implements UserDetails  {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Rol rol= Rol.PSICOLOGO;
-
-
     @Column(name = "creado_en", nullable = false, updatable = false)
     private LocalDateTime creadoEn;
 
@@ -48,22 +37,25 @@ public class Usuario implements UserDetails  {
         if (creadoEn == null) creadoEn = LocalDateTime.now();
     }
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Paciente> pacientes;
+
+    // ⚡ Como no hay roles, devolvemos una lista vacía
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(rol.name()));
+    public java.util.Collection<? extends org.springframework.security.core.GrantedAuthority> getAuthorities() {
+        return java.util.List.of();
     }
 
+    // ⚠️ Corrigiendo: getPassword debe devolver passwordHash, y getUsername el email
     @Override
     public String getPassword() {
-        return email;
+        return passwordHash;
     }
 
     @Override
     public String getUsername() {
-        return passwordHash;
+        return email;
     }
-
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -84,7 +76,4 @@ public class Usuario implements UserDetails  {
     public boolean isEnabled() {
         return true;
     }
-
-
-    public enum Rol { ADMIN, PSICOLOGO }
 }

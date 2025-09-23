@@ -17,9 +17,9 @@ public class ConfiguracionPsicologo {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "psicologo_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    private Psicologo psicologo;
+    private Usuario usuario;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

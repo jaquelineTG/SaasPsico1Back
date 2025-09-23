@@ -19,9 +19,9 @@ public class Cita {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "psicologo_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     @ToString.Exclude @EqualsAndHashCode.Exclude
-    private Psicologo psicologo;
+    private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id", nullable = false)
