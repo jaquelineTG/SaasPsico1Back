@@ -2,6 +2,7 @@ package com.example.psicoApp.Controllers;
 
 import com.example.psicoApp.DTOs.PacienteDTO;
 import com.example.psicoApp.Services.PacienteService;
+import com.example.psicoApp.models.Paciente;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class PacienteController {
     @PostMapping(value = "savePaciente")
     public ResponseEntity<String> save(@RequestBody PacienteDTO request, HttpServletRequest httpRequest) {
         pacienteService.save(request,httpRequest);
-        return ResponseEntity.ok("Producto guardado exitosamente en el carrito.");
+        return ResponseEntity.ok("Paciente guardado exitosamente.");
     }
-    @GetMapping(value = "getPacientes")
-    public ResponseEntity<List<PacienteDTO>> getCartItems(HttpServletRequest request) {
-        List<PacienteDTO> pacientes = pacienteService.getPacientes(request);
-        return ResponseEntity.ok(pacientes);
+    @GetMapping("getPacientes")
+    public List<PacienteDTO> getPacientes(HttpServletRequest request) {
+        return pacienteService.getPacientes(request);
     }
+
 }

@@ -1,11 +1,17 @@
 package com.example.psicoApp.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import java.time.LocalDate;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+@Builder
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "pacientes")
 public class Paciente {
     @Id
@@ -14,7 +20,7 @@ public class Paciente {
 
     private String nombre;
     private String apellido;
-    private LocalDate fechaNacimiento;
+    private LocalDate fecha_nacimiento;
 
     @Column(nullable = false)
     private String telefono;
@@ -26,10 +32,15 @@ public class Paciente {
     private String direccion;
 
     private String ocupacion;
+    @Enumerated(EnumType.STRING)
+    private tipo_terapia tipo_terapia;
+
+    private String numero_emergencia;
     // 👇 Relación con Psicólogo
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     public enum Sexo { MASCULINO, FEMENINO, OTRO }
+    public enum tipo_terapia { INDIVIDUAL, PAREJA, FAMILIAR,GRUPAL, INFANTIL, ESPECIALIZADA }
 }
