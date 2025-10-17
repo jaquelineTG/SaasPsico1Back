@@ -2,6 +2,8 @@ package com.example.psicoApp.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -31,7 +33,7 @@ public class Cita {
     private Paciente paciente;
 
     // Fecha de la cita
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
     // Hora de inicio de la cita
     @Column(name = "hora_inicio", nullable = false)

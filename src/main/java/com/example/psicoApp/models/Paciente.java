@@ -33,7 +33,7 @@ public class Paciente {
 
     private String ocupacion;
     @Enumerated(EnumType.STRING)
-    private tipo_terapia tipo_terapia;
+        private tipo_terapia tipo_terapia;
 
     private String numero_emergencia;
     // 👇 Relación con Psicólogo

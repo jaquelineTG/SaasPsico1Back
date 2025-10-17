@@ -6,7 +6,7 @@ package com.example.psicoApp.Auth;
 
 import com.example.psicoApp.Auth.DTO.LoginDTO;
 import com.example.psicoApp.Auth.DTO.RegisterDTO;
-import com.example.psicoApp.Demo.User.UserRepository;
+import com.example.psicoApp.Repositories.UsuarioRepository;
 import com.example.psicoApp.Security.JWT.JwtService;
 import com.example.psicoApp.models.Usuario;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private final UserRepository userRepository;
+    private final UsuarioRepository userRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     public AuthResponse login(LoginDTO request) {

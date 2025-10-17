@@ -13,6 +13,6 @@ public class CitaPacienteDTO {
     private String apellido;
     private LocalDate fecha_nacimiento;
 
-    private LocalTime horaInicio;
-    private LocalTime horaFinal;
+    private LocalTime hora_inicio;
+    private LocalTime hora_final;
 }

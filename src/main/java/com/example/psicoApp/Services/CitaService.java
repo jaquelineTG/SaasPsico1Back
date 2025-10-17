@@ -3,8 +3,9 @@ package com.example.psicoApp.Services;
 import com.example.psicoApp.DTOs.CitaDTO;
 import com.example.psicoApp.DTOs.CitaPacienteDTO;
 import com.example.psicoApp.DTOs.PacienteDTO;
-import com.example.psicoApp.Demo.User.CitaRepository;
-import com.example.psicoApp.Demo.User.PacienteRepository;
+
+import com.example.psicoApp.Repositories.CitaRepository;
+import com.example.psicoApp.Repositories.PacienteRepository;
 import com.example.psicoApp.Repositories.UsuarioRepository;
 import com.example.psicoApp.Security.JWT.JwtService;
 import com.example.psicoApp.models.Cita;
@@ -13,13 +14,14 @@ import com.example.psicoApp.models.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class CitaService {
     @Autowired
     private CitaRepository citaRepository;
@@ -39,13 +41,13 @@ public class CitaService {
                 .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 
 
-        Cita cita = new Cita().builder()
+        Cita cita = Cita.builder()
                 .usuario(user)
                 .paciente(paciente)
                 .estado(request.getEstado())
                 .fecha(request.getFecha())
-                .hora_inicio(request.getHora_inicio())
-                .hora_final(request.getHora_final())
+                .hora_inicio(request.getHoraInicio())
+                .hora_final(request.getHoraFinal())
                 .notas(request.getNotas())
                 .build();
 
@@ -75,8 +77,8 @@ public class CitaService {
                             .nombre(p.getNombre())
                             .apellido(p.getApellido())
                             .fecha_nacimiento(p.getFecha_nacimiento())
-                            .horaInicio(c.getHora_inicio())
-                            .horaFinal(c.getHora_final())
+                            .hora_inicio(c.getHora_inicio())
+                            .hora_final(c.getHora_final())
                             .build();
                 })
                 .collect(Collectors.toList());

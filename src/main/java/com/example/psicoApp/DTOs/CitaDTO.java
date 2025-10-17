@@ -8,8 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,9 +20,9 @@ public class CitaDTO {
     private Long cita_id;
     private Usuario usuario;
     private Long paciente;
-    private LocalDateTime fecha;
-    private LocalTime hora_inicio;
-    private LocalTime hora_final;
+    private LocalDate fecha;
+    private LocalTime horaInicio;
+    private LocalTime horaFinal;
     private Paciente.Sexo sexo;
     private Cita.Estado estado;
     private String notas;

@@ -23,8 +23,6 @@ public class PacienteDTO {
     private Paciente.Sexo sexo;
     private String direccion;
     private String ocupacion;
-    @JsonProperty("tipo_terapia")            // nombre exacto en JSON
-    @JsonFormat(shape = JsonFormat.Shape.STRING) // fuerza serialización como String
     private Paciente.tipo_terapia tipo_terapia;
     private String numero_emergencia;
     private long usuario_id;

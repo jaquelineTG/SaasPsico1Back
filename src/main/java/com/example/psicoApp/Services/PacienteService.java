@@ -33,7 +33,7 @@ public class PacienteService {
         Usuario user = usuarioRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        Paciente paciente = new Paciente().builder()
+        Paciente paciente = Paciente.builder()
                 .nombre(request.getNombre())
                 .apellido(request.getApellido())
                 .direccion(request.getDireccion())

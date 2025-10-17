@@ -3,7 +3,8 @@ package com.example.psicoApp.Security;
 
 
 
-import com.example.psicoApp.Demo.User.UserRepository;
+
+import com.example.psicoApp.Repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class AplicationConfig {
 
-    private final UserRepository userRepository;
+    private final UsuarioRepository userRepository;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)throws Exception{
