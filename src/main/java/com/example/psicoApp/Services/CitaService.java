@@ -122,7 +122,7 @@ public class CitaService {
         LocalDate manana = hoy.plusDays(1);
         LocalDate pasadoManana = hoy.plusDays(2);
 
-        List<Cita> citas = citaRepository.findByFecha(manana,pasadoManana);
+        List<Cita> citas = citaRepository.findByFechaBetween(manana,pasadoManana);
 
         // mapear a DTOs de pacientes
         return citas.stream()
