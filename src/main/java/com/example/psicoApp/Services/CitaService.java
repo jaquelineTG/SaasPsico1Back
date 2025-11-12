@@ -66,7 +66,7 @@ public class CitaService {
         LocalDateTime startOfDay = fecha.atStartOfDay();
         LocalDateTime endOfDay = fecha.atTime(LocalTime.MAX);
 
-        List<Cita> citas = citaRepository.findByUsuarioAndFechaBetween(user, startOfDay, endOfDay);
+        List<Cita> citas = citaRepository.findByUsuarioAndFecha(user, fecha);
 
         // mapear a DTOs de pacientes
         return citas.stream()
@@ -76,7 +76,6 @@ public class CitaService {
                             .paciente_id(p.getId())
                             .nombre(p.getNombre())
                             .apellido(p.getApellido())
-                            .fecha_nacimiento(p.getFecha_nacimiento())
                             .hora_inicio(c.getHora_inicio())
                             .hora_final(c.getHora_final())
                             .build();

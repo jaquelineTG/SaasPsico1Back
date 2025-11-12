@@ -33,7 +33,7 @@ public class Cita {
     private Paciente paciente;
 
     // Fecha de la cita
-    private LocalDate fecha;
+    private LocalDate  fecha;
 
     // Hora de inicio de la cita
     @Column(name = "hora_inicio", nullable = false)
