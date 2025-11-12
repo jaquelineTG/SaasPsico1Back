@@ -1,5 +1,6 @@
 package com.example.psicoApp.Controllers;
 
+import com.example.psicoApp.DTOs.CitaPacienteDTO;
 import com.example.psicoApp.DTOs.PacienteDTO;
 import com.example.psicoApp.Services.PacienteService;
 import com.example.psicoApp.models.Paciente;
@@ -29,5 +30,7 @@ public class PacienteController {
     public List<PacienteDTO> getPacientes(HttpServletRequest request) {
         return pacienteService.getPacientes(request);
     }
+
+
 
 }

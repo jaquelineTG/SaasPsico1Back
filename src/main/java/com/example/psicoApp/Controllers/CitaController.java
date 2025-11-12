@@ -6,6 +6,7 @@ import com.example.psicoApp.DTOs.CitaPacienteDTO;
 import com.example.psicoApp.DTOs.PacienteDTO;
 import com.example.psicoApp.Services.CitaService;
 import com.example.psicoApp.Services.PacienteService;
+import com.example.psicoApp.models.Cita;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,21 @@ public class CitaController {
     @GetMapping("getCitas/{fecha}")
     public List<CitaPacienteDTO> getCitasPorDia(@PathVariable String fecha, HttpServletRequest httpRequest) {
         return citaService.getCitasPorDia(LocalDate.parse(fecha), httpRequest);
+    }
+
+    @GetMapping("getPacientesPorFecha")
+    public List<CitaPacienteDTO> getPacientesPorFecha(HttpServletRequest request) {
+        return citaService.getPacientesyFecha(request);
+    }
+
+    @GetMapping("getPacientesPorProximasFechas")
+    public List<CitaPacienteDTO> getPacientesPorProximasFechas(HttpServletRequest request) {
+        return citaService.getPacientesPorProximasFechas(request);
+    }
+
+    @GetMapping("getCitasPorSemana")
+    public Integer getCitasPorSemana(HttpServletRequest request) {
+        return citaService.getCitasPorSemana(request);
     }
 
 

@@ -1,10 +1,12 @@
 package com.example.psicoApp.Services;
 
 
+import com.example.psicoApp.DTOs.CitaPacienteDTO;
 import com.example.psicoApp.DTOs.PacienteDTO;
 import com.example.psicoApp.Repositories.PacienteRepository;
 import com.example.psicoApp.Repositories.UsuarioRepository;
 import com.example.psicoApp.Security.JWT.JwtService;
+import com.example.psicoApp.models.Cita;
 import com.example.psicoApp.models.Paciente;
 import com.example.psicoApp.models.Usuario;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -82,3 +87,4 @@ public class PacienteService {
 
 
 }
+

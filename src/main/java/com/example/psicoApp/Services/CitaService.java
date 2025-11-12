@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -82,6 +83,76 @@ public class CitaService {
                 })
                 .collect(Collectors.toList());
 
+
+    }
+
+    public List<CitaPacienteDTO> getPacientesyFecha(HttpServletRequest request) {
+
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        String username = jwtService.getUsernameFromToken(token);
+        Usuario user = usuarioRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        LocalDate fecha = LocalDate.now();
+
+        List<Cita> citas = citaRepository.findByFecha(fecha);
+
+        // mapear a DTOs de pacientes
+        return citas.stream()
+                .map(c -> {
+                    Paciente p = c.getPaciente();
+                    return CitaPacienteDTO.builder()
+                            .paciente_id(p.getId())
+                            .nombre(p.getNombre())
+                            .tipo_terapia(p.getTipo_terapia())
+                            .hora_inicio(c.getHora_inicio())
+                            .hora_final(c.getHora_final())
+                            .build();
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<CitaPacienteDTO> getPacientesPorProximasFechas(HttpServletRequest request) {
+
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        String username = jwtService.getUsernameFromToken(token);
+        Usuario user = usuarioRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        LocalDate hoy = LocalDate.now();
+        LocalDate manana = hoy.plusDays(1);
+        LocalDate pasadoManana = hoy.plusDays(2);
+
+        List<Cita> citas = citaRepository.findByFecha(manana,pasadoManana);
+
+        // mapear a DTOs de pacientes
+        return citas.stream()
+                .map(c -> {
+                    Paciente p = c.getPaciente();
+                    return CitaPacienteDTO.builder()
+                            .paciente_id(p.getId())
+                            .nombre(p.getNombre())
+                            .apellido(p.getApellido())
+                            .fecha(c.getFecha())
+                            .build();
+                })
+                .collect(Collectors.toList());
+    }
+
+    public Integer getCitasPorSemana(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        String username = jwtService.getUsernameFromToken(token);
+        Usuario user = usuarioRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        LocalDate hoy = LocalDate.now();
+        LocalDate inicioSemana = hoy.with(DayOfWeek.MONDAY);
+        LocalDate finSemana = hoy.with(DayOfWeek.SUNDAY);
+
+
+        List<Cita> citas = citaRepository.findByUsuarioAndFechaBetween(user,inicioSemana,finSemana);
+        Integer noCitas = citas.size();
+
+        return noCitas;
 
     }
 }
