@@ -3,15 +3,17 @@ package com.example.psicoApp.models;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Builder
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "pagos")
 public class     Pago {
     @Id
@@ -29,19 +31,19 @@ public class     Pago {
     private Usuario usuario;
 
     @Column(precision = 10, scale = 2, nullable = false)
-    private BigDecimal monto;
+    private Double monto;
 
     @Enumerated(EnumType.STRING)
     private Metodo metodo;
 
     @Column(name = "fecha", nullable = false, updatable = false)
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
     public enum Metodo { EFECTIVO, TRANSFERENCIA, TARJETA }
 
     @PrePersist
     public void prePersist() {
-        if (fecha == null) fecha = LocalDateTime.now();
+        if (fecha == null) fecha = LocalDate.now();
     }
 }
 
