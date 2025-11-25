@@ -1,8 +1,6 @@
 package com.example.psicoApp.Controllers;
 
-import com.example.psicoApp.DTOs.CitaDTO;
-import com.example.psicoApp.DTOs.PacienteDTO;
-import com.example.psicoApp.DTOs.PagoPacienteDTO;
+import com.example.psicoApp.DTOs.*;
 import com.example.psicoApp.Services.CitaService;
 import com.example.psicoApp.Services.PacienteService;
 import com.example.psicoApp.Services.PagoService;
@@ -28,6 +26,16 @@ public class PagoController {
     public ResponseEntity<String> save(@RequestBody PagoPacienteDTO request, HttpServletRequest httpRequest) {
         pagoService.save(request,httpRequest);
         return ResponseEntity.ok("pago guardado exitosamente.");
+    }
+
+    @GetMapping("getPagos")
+    public List<PagoDTO> getPagos(HttpServletRequest request) {
+        return pagoService.getPagos(request);
+    }
+
+    @GetMapping("getPagosPacientes")
+    public List<PagoPacienteDTO> getPagosPacientes(HttpServletRequest request) {
+        return pagoService.getPagosPacientes(request);
     }
 
 

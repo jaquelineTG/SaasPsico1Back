@@ -11,6 +11,10 @@ import java.time.LocalDate;
 @Builder
 public class PagoPacienteDTO {
     private Long idPaciente;
+    private String nombre;
+    private String apellido;
+
+
     private Double monto;
     private LocalDate fecha;
     private Pago.Metodo metodo;
