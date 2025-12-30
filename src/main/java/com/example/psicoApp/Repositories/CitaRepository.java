@@ -14,6 +14,11 @@ public interface CitaRepository extends JpaRepository<Cita,Long> {
     List<Cita> findByUsuarioAndFecha(Usuario user, LocalDate fecha);
 
     List<Cita> findByFecha(LocalDate fecha);
+    Optional<Cita> findByUsuarioAndPacienteAndFecha(
+            Usuario usuario,
+            Paciente paciente,
+            LocalDate fecha
+    );
 
     List<Cita> findByFechaBetween(LocalDate fecha,LocalDate fecha2);
 

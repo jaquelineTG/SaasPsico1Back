@@ -32,6 +32,10 @@ public class CitaController {
     public List<CitaPacienteDTO> getCitasPorDia(@PathVariable String fecha, HttpServletRequest httpRequest) {
         return citaService.getCitasPorDia(LocalDate.parse(fecha), httpRequest);
     }
+    @GetMapping("getCitaPorPaciente/{id}")
+    public CitaDTO getCitaPorPaciente(@PathVariable Long id,HttpServletRequest httpRequest) {
+        return citaService.getCitaPorPaciente(id,httpRequest);
+    }
 
     @GetMapping("getPacientesPorFecha")
     public List<CitaPacienteDTO> getPacientesPorFecha(HttpServletRequest request) {

@@ -2,7 +2,6 @@ package com.example.psicoApp.Services;
 
 import com.example.psicoApp.DTOs.CitaDTO;
 import com.example.psicoApp.DTOs.CitaPacienteDTO;
-import com.example.psicoApp.DTOs.PacienteDTO;
 
 import com.example.psicoApp.Repositories.CitaRepository;
 import com.example.psicoApp.Repositories.PacienteRepository;
@@ -13,14 +12,17 @@ import com.example.psicoApp.models.Paciente;
 import com.example.psicoApp.models.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class CitaService {
@@ -153,6 +155,36 @@ public class CitaService {
         Integer noCitas = citas.size();
 
         return noCitas;
+
+    }
+
+
+    public CitaDTO getCitaPorPaciente(Long id, HttpServletRequest httpRequest) {
+        String token = httpRequest.getHeader("Authorization").replace("Bearer ", "");
+        String username = jwtService.getUsernameFromToken(token);
+        Usuario user = usuarioRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        Paciente paciente = pacienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+
+        LocalDate hoy = LocalDate.now();
+
+        return citaRepository
+                .findByUsuarioAndPacienteAndFecha(user, paciente, hoy)
+                .map(cita -> CitaDTO.builder()
+                        .cita_id(cita.getId())
+                        .fecha(cita.getFecha())
+                        .horaInicio(cita.getHora_inicio())
+                        .horaFinal(cita.getHora_final())
+                        .build()
+                )
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "El paciente no tiene cita hoy"
+                ));
+
+
 
     }
 }

@@ -31,7 +31,7 @@ public class     Pago {
     private Usuario usuario;
 
     @Column(precision = 10, scale = 2, nullable = false)
-    private Double monto;
+    private BigDecimal monto;
 
     @Enumerated(EnumType.STRING)
     private Metodo metodo;

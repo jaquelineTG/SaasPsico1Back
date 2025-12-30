@@ -5,6 +5,7 @@ import com.example.psicoApp.models.Pago;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -15,7 +16,7 @@ public class PagoPacienteDTO {
     private String apellido;
 
 
-    private Double monto;
+    private BigDecimal monto;
     private LocalDate fecha;
     private Pago.Metodo metodo;
 }

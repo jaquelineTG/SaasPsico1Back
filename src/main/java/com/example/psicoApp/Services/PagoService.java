@@ -12,13 +12,17 @@ import com.example.psicoApp.models.Paciente;
 import com.example.psicoApp.models.Pago;
 import com.example.psicoApp.models.Usuario;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
+@RequiredArgsConstructor
 public class PagoService {
     @Autowired
     private JwtService jwtService;
@@ -67,7 +71,7 @@ public class PagoService {
                         p.getUsuario().getId(),
                         p.getPaciente().getId(),
                         p.getMonto(),
-                        p.getFecha(),
+                        p.getFecha().toString(),
                         p.getMetodo()
                 ))
                 .collect(Collectors.toList());
