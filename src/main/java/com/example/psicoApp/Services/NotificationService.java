@@ -3,6 +3,7 @@ package com.example.psicoApp.Services;
 import com.example.psicoApp.Repositories.PushTokenRepository;
 import com.example.psicoApp.models.PushToken;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
